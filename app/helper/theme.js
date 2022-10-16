@@ -28,6 +28,7 @@ export const Colors = {
     primary3: '#84C99D',
     primary4: '#92CFA8',
     primary5: '#D6EDDE',
+    primary6: '#f1f9f4',
 
     grey8C: '#8C9099',
     greyE8: '#E8E8EA',

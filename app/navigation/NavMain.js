@@ -7,6 +7,7 @@ import Signup from '../screens/Signup';
 import Login from '../screens/Login';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
+import TourDetails from '../screens/TourDetails';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ export default function App() {
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             <Stack.Screen name="Home" component={Home} options={{ headerShown: true }} />
             <Stack.Screen name="Profile" component={Profile} options={{ headerShown: true }} />
+            <Stack.Screen name="TourDetails" component={TourDetails} options={{ headerShown: true }} />
         </Stack.Navigator>
     );
 }

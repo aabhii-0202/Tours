@@ -8,7 +8,7 @@ import {
 import { Colors, FontSizes } from '../helper/theme';
 
 
-const App = ({navigation}) => {
+const App = ({navigation, item}) => {
 
     return (
         <View style={styles.container}>
@@ -63,7 +63,7 @@ const App = ({navigation}) => {
                         <Text style={styles.t5}>rating(7)</Text>
                     </View>
                 </View>
-                <TouchableOpacity
+                <TouchableOpacity onPress={()=>navigation.navigate('NavMain', {screen:'TourDetails'})}
                 style={styles.btn}>
                     <Text style={{
                         fontFamily:'OpenSans-SemiBold',

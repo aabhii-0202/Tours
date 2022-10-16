@@ -7,7 +7,6 @@ import {
 import { Colors, FontSizes } from '../helper/theme';
 import { BtnSolid } from '../components/Buttons';
 import DropDown from '../components/DropDown';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Input from '../components/Input';
 
 const App = ({navigation}) => {

@@ -1,10 +1,8 @@
 import React, {useLayoutEffect,useEffect,useState} from 'react';
 
 import {
-    SafeAreaView,ScrollView,
-    StyleSheet,Image,FlatList,
-    Text, TextInput, View, Keyboard,
-TouchableWithoutFeedback,
+    StyleSheet,FlatList,
+    Text, View,
     TouchableOpacity,
 } from 'react-native';
 import { Colors, FontSizes } from '../helper/theme';
@@ -79,22 +77,17 @@ const App = ({navigation}) => {
     ]);
 
     return (
-        <View style={{flex:1,backgroundColor:Colors.background}}>
+        <View style={{flex:1,backgroundColor:Colors.primary6}}>
         <FlatList
             horizontal
             data={itemList}
             renderItem={item => {
                 return (
-                    <TourItem item={item}/>
+                    <TourItem navigation={navigation} item={item}/>
                 );
             }}/>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-
-});
-
 
 export default App;
