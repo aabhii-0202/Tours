@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import Splash from './screens/Splash';
 import NavMain from './navigation/NavMain';
+import NavAuth from './navigation/NavAuth';
 
 const Stack = createStackNavigator();
 
@@ -25,8 +26,8 @@ export default () => {
           headerTintColor: 'black',
         }}>
         <Stack.Screen
-          name="Splash"
-          component={Splash}
+          name="NavAuth"
+          component={NavAuth}
           options={{headerShown: false}}
         />
         <Stack.Screen

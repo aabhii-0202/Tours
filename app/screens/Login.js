@@ -30,6 +30,10 @@ const App = ({navigation}) => {
                 secureTextEntry = {true}
             />
             <BtnSolid text="Submit" click={()=>navigation.navigate('NavMain', {screen: 'Home'})} />
+            <TouchableOpacity onPress={()=>navigation.navigate('NavAuth', {screen: 'Signup'})}>
+            <Text style={styles.t1}>Don't Have an Account</Text>
+            <Text style={styles.t2}>Create New Insted</Text>
+            </TouchableOpacity>
             </View>
 
 
@@ -45,6 +49,20 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         marginVertical:40,
         fontFamily:'OpenSans-Bold',
+    },
+    t1:{
+        color:Colors.primary4,
+        fontSize:FontSizes.p3,
+        alignSelf:'center',
+        marginTop:20,
+        fontFamily:'OpenSans-SemiBold',
+    },
+    t2:{
+        color:Colors.primary1,
+        fontSize:FontSizes.p1,
+        alignSelf:'center',
+        fontFamily:'OpenSans-Bold',
+        marginBottom:40,
     },
 });
 

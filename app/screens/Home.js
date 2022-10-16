@@ -50,7 +50,8 @@ const App = ({navigation}) => {
 
     const HeaderRightButton = ({ navigation }) => {
         return (
-            <TouchableOpacity style={{
+            <TouchableOpacity onPress={()=>navigation.navigate('NavAuth', {screen: 'Signup'})}
+            style={{
                 backgroundColor: '#ffffff',
                 height: 40,
                 width: 40,

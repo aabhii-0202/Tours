@@ -55,7 +55,7 @@ const App = ({navigation}) => {
             />
 
             <BtnSolid text="Submit" />
-            <TouchableOpacity onPress={()=>navigation.navigate('NavMain', {screen: 'Login'})}>
+            <TouchableOpacity onPress={()=>navigation.navigate('NavAuth', {screen: 'Login'})}>
             <Text style={styles.t1}>Already Have an Account</Text>
             <Text style={styles.t2}>Login Insted</Text>
             </TouchableOpacity>
