@@ -12,43 +12,6 @@ import Input from '../components/Input';
 
 const App = ({navigation}) => {
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerTitle: () =>
-                <View style={{alignSelf:'center',marginStart:0}}>
-                    <Text style={{ fontSize: FontSizes.h2, color: Colors.grey8C, fontFamily: 'OpenSans-SemiBold', alignSelf: 'center', textAlign: 'center' }}>
-                        Signup</Text>
-                </View>,
-            headerRight: () => null,
-            headerLeft: () => <HeaderLeftButton navigation={navigation} />,
-        });
-    }, [navigation]);
-
-    const HeaderLeftButton = ({ navigation }) => {
-        return (
-            <TouchableOpacity onPress={() => navigation.pop()} style={{
-                    backgroundColor: '#ffffff',
-                    height: 40,
-                    width: 40,
-                    margin: 20,
-                    borderRadius: 10,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    shadowColor: Colors.primary1,
-                    shadowOffset: {
-                        width: 0,
-                        height: 2,
-                    },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 3,
-                    paddingLeft: 0,
-                }}>
-                <Ionicons name="chevron-back" size={20} color={Colors.greyA7} />
-            </TouchableOpacity>
-        );
-    };
-
     const [name,setName] = useState('');
     const [mail,setMail] = useState('');
     const [password, setPassword] = useState('');
@@ -93,6 +56,10 @@ const App = ({navigation}) => {
             />
 
             <BtnSolid text="Submit" />
+            <TouchableOpacity onPress={()=>navigation.navigate('NavMain', {screen: 'Login'})}>
+            <Text style={styles.t1}>Already Have an Account</Text>
+            <Text style={styles.t2}>Login Insted</Text>
+            </TouchableOpacity>
 
             </ScrollView>
         </SafeAreaView>
@@ -105,8 +72,22 @@ const styles = StyleSheet.create({
         color:Colors.primary1,
         fontSize:FontSizes.h,
         alignSelf:'center',
-        marginTop:20,
+        marginVertical:40,
         fontFamily:'OpenSans-Bold',
+    },
+    t1:{
+        color:Colors.primary4,
+        fontSize:FontSizes.p3,
+        alignSelf:'center',
+        marginTop:20,
+        fontFamily:'OpenSans-SemiBold',
+    },
+    t2:{
+        color:Colors.primary1,
+        fontSize:FontSizes.p1,
+        alignSelf:'center',
+        fontFamily:'OpenSans-Bold',
+        marginBottom:40,
     },
 });
 

@@ -30,6 +30,11 @@ export const Colors = {
     primary5: '#D6EDDE',
 
     grey8C: '#8C9099',
+    greyE8: '#E8E8EA',
+    greyF3: '#F3F3F4',
+    greyE8: '#E8E8EA',
+
+    mintGreen: '#98FB98',
     
     
     border2:'#538866',

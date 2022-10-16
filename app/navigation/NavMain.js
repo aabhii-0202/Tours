@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { StatusBar, StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Arrow from 'react-native-vector-icons/MaterialIcons';
-import { FontSizes, Colors } from '../screens/Splash';
 
 import Splash from '../screens/Splash';
 import Signup from '../screens/Signup';
+import Login from '../screens/Login';
+import Home from '../screens/Home';
+import Profile from '../screens/Profile';
 
 const Stack = createStackNavigator();
 
 export default function App() {
 
     return (
-        <Stack.Navigator initialRouteName='Splash' screenOptions={{ headerTitleAlign: "center", headerShadowVisible: false, headerStyle: { height: 70 } }}>
-            <Stack.Screen name="Splash" component={Splash} options={{ headerShown: true }} />
-            <Stack.Screen name="Signup" component={Signup} options={{ headerShown: true }} />
+        <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerTitleAlign: 'center', headerShadowVisible: false, headerStyle: { height: 70 } }}>
+            <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
+            <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />
+            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name="Home" component={Home} options={{ headerShown: true }} />
+            <Stack.Screen name="Profile" component={Profile} options={{ headerShown: true }} />
         </Stack.Navigator>
     );
 }
