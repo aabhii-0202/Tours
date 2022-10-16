@@ -9,6 +9,8 @@ import { Colors, FontSizes } from '../helper/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import TourItem from '../components/TourItem';
+import { getAllTour } from '../api/tours';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const App = ({navigation}) => {
     useLayoutEffect(() => {
@@ -73,12 +75,29 @@ const App = ({navigation}) => {
         );
     };
 
-    const [itemList, setItemList] = useState([
-        1, 2, 3,
-    ]);
+    useEffect(()=>{
+        async function getAll() {
+            const res = await getAllTour();
+            if (res.status === 'success' && res.data.data.length > 0){
+                setItemList(res.data.data);
+            } else {
+            }
+            setloading(false);
+        }
+        getAll();
+    },[]);
+
+    const [loading, setloading] = useState(true);
+
+    const [itemList, setItemList] = useState([]);
 
     return (
         <View style={{flex:1,backgroundColor:Colors.primary6}}>
+            <Spinner
+                visible={loading}
+                textContent={'Please Wait...'}
+                textStyle={{ color: '#FFF' }}
+            />
         <FlatList
             horizontal
             data={itemList}

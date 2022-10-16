@@ -10,6 +10,12 @@ import { Colors, FontSizes } from '../helper/theme';
 
 const App = ({navigation, item}) => {
 
+    let difficulty = item.item.difficulty;
+    difficulty = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+    let points = 1;
+    if (item.item.locations.length > 0) {
+        points = item.item.locations.length;
+    }
     return (
         <View style={styles.container}>
             <Image
@@ -27,21 +33,21 @@ const App = ({navigation, item}) => {
                 right:10,
                 top:180,
             }}>
-                <Text style={styles.t6}>The Sea Explorer</Text>
+                <Text style={styles.t6}>{item.item.name}</Text>
             </View>
             <View style={{
                 paddingHorizontal:20,
                 paddingVertical:20,
             }}>
-                <Text style={styles.t1}>Medium 7-Day Tour</Text>
-                <Text style={styles.t2}>Exploring the jaw-dropping US east coast by foot and by boat</Text>
+                <Text style={styles.t1}>{difficulty} {item.item.duration}-Day Tour</Text>
+                <Text style={styles.t2}>{item.item.summary}</Text>
                 <View style={styles.v1}>
-                    <Text style={styles.t3}>Miami, USA</Text>
+                    <Text style={styles.t3}>{item.item.startLocation.description}</Text>
                     <Text style={styles.t3}>June 2021</Text>
                 </View>
                 <View style={styles.v1}>
-                    <Text style={styles.t3}>4 stops</Text>
-                    <Text style={styles.t3}>15 people</Text>
+                    <Text style={styles.t3}>{points} stops</Text>
+                    <Text style={styles.t3}>{item.item.maxGroupSize} people</Text>
                 </View>
             </View>
             <View style={{flexDirection:'row',
@@ -55,12 +61,12 @@ const App = ({navigation, item}) => {
                 paddingVertical:20,
             }}>
                     <View style={{flexDirection:'row'}}>
-                        <Text style={styles.t4}>₹497</Text>
+                        <Text style={styles.t4}>₹{item.item.price}</Text>
                         <Text style={styles.t5}>per person</Text>
                     </View>
                     <View style={{flexDirection:'row'}}>
-                        <Text style={styles.t4}>4.3</Text>
-                        <Text style={styles.t5}>rating(7)</Text>
+                        <Text style={styles.t4}>{item.item.ratingsAverage}</Text>
+                        <Text style={styles.t5}>rating({item.item.ratingsQuantity})</Text>
                     </View>
                 </View>
                 <TouchableOpacity onPress={()=>navigation.navigate('NavMain', {screen:'TourDetails'})}
