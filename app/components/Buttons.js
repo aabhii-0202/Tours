@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity} from 'react-native';
-import { FontSizes, Colors } from 'App/helper/theme';
+import { FontSizes, Colors } from '../helper/theme';
 
 export const BtnSolid = (props) => {
     return (
-        <TouchableOpacity disabled={props.disabled} style={{ ...styles.btnPrimarySolid, backgroundColor: props.disabled ? '#D1C9CC' : Colors.primary1, ...props.style, }} onPress={props.click}>
+        <TouchableOpacity disabled={props.disabled} style={{ ...styles.btnPrimarySolid, backgroundColor: props.disabled ? '#D1C9CC' : Colors.primary1, ...props.style }} onPress={props.click}>
                 <Text style={{ color: 'white', fontSize: FontSizes.h3, alignSelf: 'center', fontFamily: 'OpenSans-SemiBold',...props.textColor }}>{props.text}</Text>
         </TouchableOpacity>
     );
@@ -35,12 +35,12 @@ const styles = StyleSheet.create({
     },
     btnPrimarySolid: {
         backgroundColor:'#BF5F7D',
-        width: '90%',
+        width: '100%',
         height: 40,
         borderRadius: 17,
         alignItems: 'center',
         justifyContent: 'center',
-        margin:5,
+        marginTop:20,
         alignSelf:'center',
     },
     linkPrimary: {

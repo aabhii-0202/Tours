@@ -5,7 +5,7 @@ import Arrow from 'react-native-vector-icons/MaterialIcons';
 import { FontSizes, Colors } from '../screens/Splash';
 
 import Splash from '../screens/Splash';
-import Login from '../screens/Login';
+import Signup from '../screens/Signup';
 
 const Stack = createStackNavigator();
 
@@ -14,7 +14,7 @@ export default function App() {
     return (
         <Stack.Navigator initialRouteName='Splash' screenOptions={{ headerTitleAlign: "center", headerShadowVisible: false, headerStyle: { height: 70 } }}>
             <Stack.Screen name="Splash" component={Splash} options={{ headerShown: true }} />
-            <Stack.Screen name="Login" component={Login} options={{ headerShown: true }} />
+            <Stack.Screen name="Signup" component={Signup} options={{ headerShown: true }} />
         </Stack.Navigator>
     );
 }

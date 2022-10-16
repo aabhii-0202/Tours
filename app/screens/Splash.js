@@ -15,7 +15,7 @@ const App = ({navigation}) => {
     return (
         <SafeAreaView style={{flex:1}}>
         <ScrollView style={{paddingHorizontal:24}}>
-        <TouchableOpacity onPress={()=>navigation.navigate('NavMain', {screen: 'Login'})}>
+        <TouchableOpacity onPress={()=>navigation.navigate('NavMain', {screen: 'Signup'})}>
             <Text style={{
                 fontSize:FontSizes.h,
             }}>Splash Screen</Text>
