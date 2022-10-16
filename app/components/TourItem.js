@@ -6,6 +6,7 @@ import {
     TouchableOpacity,Dimensions,
 } from 'react-native';
 import { Colors, FontSizes } from '../helper/theme';
+import moment from 'moment';
 
 
 const App = ({navigation, item}) => {
@@ -16,6 +17,12 @@ const App = ({navigation, item}) => {
     if (item.item.locations.length > 0) {
         points = item.item.locations.length;
     }
+
+    let date = '-';
+    if (item.item.startDates.length > 0){
+        date =  moment(item.item.startDates[0]).utc().format('YYYY-MM-DD');
+    }
+
     return (
         <View style={styles.container}>
             <Image
@@ -43,7 +50,7 @@ const App = ({navigation, item}) => {
                 <Text style={styles.t2}>{item.item.summary}</Text>
                 <View style={styles.v1}>
                     <Text style={styles.t3}>{item.item.startLocation.description}</Text>
-                    <Text style={styles.t3}>June 2021</Text>
+                    <Text style={styles.t3}>{date}</Text>
                 </View>
                 <View style={styles.v1}>
                     <Text style={styles.t3}>{points} stops</Text>

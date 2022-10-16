@@ -54,7 +54,7 @@ const App = ({navigation}) => {
                 setSelected={setSelected}
             />
 
-            <BtnSolid text="Submit" />
+            <BtnSolid text="Submit"  click={()=>navigation.navigate('NavMain', {screen: 'Home'})} />
             <TouchableOpacity onPress={()=>navigation.navigate('NavAuth', {screen: 'Login'})}>
             <Text style={styles.t1}>Already Have an Account</Text>
             <Text style={styles.t2}>Login Insted</Text>
