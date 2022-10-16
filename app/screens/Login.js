@@ -1,6 +1,6 @@
 import React,{useLayoutEffect, useState} from 'react';
 import {
-    SafeAreaView,ScrollView,
+    SafeAreaView,ScrollView,Dimensions,
     StyleSheet,Text, View,Keyboard,
     TouchableOpacity,
 } from 'react-native';
@@ -10,34 +10,42 @@ import Input from '../components/Input';
 import { login } from '../api/auth';
 import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Snackbar } from 'react-native-paper';
 
 const App = ({navigation}) => {
 
-    const [mail,setMail] = useState('guide@gmail.com');
-    const [password, setPassword] = useState('test1234');
-    const [loading, setloading] = useState(true);
+    const [mail,setMail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setloading] = useState(false);
+    const [snackbar, setsnackbar] = useState(false);
+    const [snackbarText, setsnackbarText] = useState('');
 
     const loginClick = async () => {
-        Keyboard.dismiss()
+        Keyboard.dismiss();
         if (mail === '' || password === '') {
-
+            setsnackbarText('Please Enter Email and Password');
+            setsnackbar(true);
         }
         else {
             let credentials = {
                 'email': mail,
                 'password': password,
             };
-            setloading(true)
+            setloading(true);
             const res = await login(credentials);
-            setloading(false);
+
             if (res.status === 'success'){
                 await AsyncStorage.setItem('@token',res.token);
                 await AsyncStorage.setItem('@id',res.data.user.photo);
                 await AsyncStorage.setItem('@name',res.data.user.name);
+                await AsyncStorage.setItem('@email',res.data.user.email);
+                setloading(false);
                 navigation.navigate('NavMain', {screen: 'Home'});
             }
             else {
-                
+                setsnackbarText('Error Logging In Try Again Later');
+                setsnackbar(true);
+                setloading(false);
             }
         }
     };
@@ -49,6 +57,13 @@ const App = ({navigation}) => {
                 textContent={'Please Wait...'}
                 textStyle={{ color: '#FFF' }}
             />
+            <Snackbar
+                visible={snackbar}
+                onDismiss={()=>setsnackbar(false)}
+                style={{ width: Dimensions.get('window').width - 15 }}
+                action={{
+                label: 'Ok',
+                }}>{snackbarText}</Snackbar>
             <Text style={styles.title}>Please Login</Text>
             <View style={{justifyContent:'center'}}>
             <Input

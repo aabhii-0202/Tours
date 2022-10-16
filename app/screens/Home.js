@@ -1,8 +1,8 @@
 import React, {useLayoutEffect,useEffect,useState} from 'react';
 
 import {
-    StyleSheet,FlatList,
-    Text, View,
+    FlatList,
+    Text, View,Dimensions,
     TouchableOpacity,
 } from 'react-native';
 import { Colors, FontSizes } from '../helper/theme';
@@ -11,6 +11,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import TourItem from '../components/TourItem';
 import { getAllTour } from '../api/tours';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { Snackbar } from 'react-native-paper';
 
 const App = ({navigation}) => {
     useLayoutEffect(() => {
@@ -80,15 +81,19 @@ const App = ({navigation}) => {
             const res = await getAllTour();
             if (res.status === 'success' && res.data.data.length > 0){
                 setItemList(res.data.data);
+                setloading(false);
             } else {
+                setsnackbarText('Something went wrong!');
+                setsnackbar(true);
+                setloading(false);
             }
-            setloading(false);
         }
         getAll();
     },[]);
 
     const [loading, setloading] = useState(true);
-
+    const [snackbar, setsnackbar] = useState(false);
+    const [snackbarText, setsnackbarText] = useState('');
     const [itemList, setItemList] = useState([]);
 
     return (
@@ -98,6 +103,13 @@ const App = ({navigation}) => {
                 textContent={'Please Wait...'}
                 textStyle={{ color: '#FFF' }}
             />
+            <Snackbar
+                visible={snackbar}
+                onDismiss={()=>setsnackbar(false)}
+                style={{ width: Dimensions.get('window').width - 15 }}
+                action={{
+                label: 'Ok',
+                }}>{snackbarText}</Snackbar>
         <FlatList
             horizontal
             data={itemList}
