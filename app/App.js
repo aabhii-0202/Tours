@@ -1,5 +1,4 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -25,6 +24,11 @@ export default () => {
           headerBackTitleVisible: false,
           headerTintColor: 'black',
         }}>
+          <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="NavAuth"
           component={NavAuth}

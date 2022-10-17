@@ -41,9 +41,9 @@ const App = ({navigation}) => {
                 'passwordConfirm': confirm,
                 'role': selected,
             };
+            console.log(credentials);
             setloading(true);
             const res = await signup(credentials);
-
             if (res.status === 'success'){
                 await AsyncStorage.setItem('@token',res.token);
                 await AsyncStorage.setItem('@id',res.data.user.photo);
@@ -53,13 +53,11 @@ const App = ({navigation}) => {
                 navigation.navigate('NavMain', {screen: 'Home'});
             }
             else {
-                console.log(res);
-                setsnackbarText('Error Logging In Try Again Later');
+                setsnackbarText('Email Already registered, Try with different mail');
                 setsnackbar(true);
                 setloading(false);
             }
         }
-        navigation.navigate('NavMain', {screen: 'Home'});
     };
 
 
@@ -74,7 +72,7 @@ const App = ({navigation}) => {
             <Snackbar
                 visible={snackbar}
                 onDismiss={()=>setsnackbar(false)}
-                style={{ width: Dimensions.get('window').width - 15 }}
+                style={{ width: Dimensions.get('window').width * 0.9 }}
                 action={{
                 label: 'Ok',
                 }}>{snackbarText}</Snackbar>
@@ -110,7 +108,9 @@ const App = ({navigation}) => {
             />
 
             <BtnSolid text="Submit"  click={signupClicked} />
-            <TouchableOpacity onPress={()=>navigation.navigate('NavAuth', {screen: 'Login'})}>
+            <TouchableOpacity
+            style={{ alignSelf:'center' }}
+            onPress={()=>navigation.navigate('NavAuth', {screen: 'Login'})}>
             <Text style={styles.t1}>Already Have an Account</Text>
             <Text style={styles.t2}>Login Insted</Text>
             </TouchableOpacity>
