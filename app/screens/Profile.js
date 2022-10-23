@@ -2,7 +2,7 @@ import React, {useLayoutEffect,useEffect,useState} from 'react';
 
 import {
     SafeAreaView,ScrollView,
-    StyleSheet,Image,
+    StyleSheet,Image,Dimensions,
     Text, TextInput, View,
     TouchableOpacity,
 } from 'react-native';
@@ -10,6 +10,10 @@ import { Colors, FontSizes } from '../helper/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Input from '../components/Input';
 import { BtnSolid } from '../components/Buttons';
+import { getMe, updateMe, updatePassword } from '../api/user';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { Snackbar } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const App = ({navigation}) => {
@@ -76,16 +80,89 @@ const App = ({navigation}) => {
         );
     };
 
-    const [name,setName] = useState('Abhishek');
-    const [mail,setMail] = useState('abhisehksingh1911a5@gmail.com');
+    useEffect(()=>{
+        async function getMydata() {
+            const res = await getMe();
+            if (res.status === 'success'){
+                const data = res.data.data;
+                setName(data.name);
+                setMail(data.email);
+                setpic(data.photo);
+                setloading(false);
+            }
+            else {
+                setloading(false);
+                navigation.navigate('NavAuth',{screen: 'Login'});
+            }
+        }
+        getMydata();
+    },[navigation]);
+
+    const updateData = async () => {
+        setloading(true);
+        if (name === '' || mail === ''){
+            setsnackbarText('Name and email must be present');
+            setsnackbar(true);
+            setloading(false);
+        }
+        else {
+            const credentials = new FormData();
+            credentials.append('name', name);
+            credentials.append('email', mail);
+            const res = await updateMe(credentials);
+            setloading(false);
+            console.log(res);
+        }
+    };
+
+    const updatePass = async () => {
+        setloading(true);
+        if (currentpass === '' || newPass === '' || confirmNewPass === ''){
+            setsnackbarText('Enter passwords');
+            setsnackbar(true);
+            setloading(false);
+        }
+        else {
+            const credentials = {
+                'paswordCurrent':  currentpass,
+                'password': newPass,
+                'passwordConfirm': confirmNewPass,
+            };
+
+            const res = await updatePassword(credentials);
+            if (res.status === 'success'){
+                console.log(res.token);
+                await AsyncStorage.setItem('@token',res.token);
+                setloading(false);
+                setsnackbarText('Password Reset Successfully');
+                setsnackbar(true);
+            }
+
+            console.log(res);
+            setloading(false);
+        }
+    };
+
+    const [loading, setloading] = useState(true);
+    const [snackbar, setsnackbar] = useState(false);
+    const [snackbarText, setsnackbarText] = useState('');
+
+    const [name,setName] = useState('');
+    const [mail,setMail] = useState();
+    const [pic, setpic] = useState(null);
 
     const [currentpass, setcurrentPass] = useState('');
     const [newPass, setNewPass] = useState('');
-    const [confirmNewPass, setConfirmNewPass] = useState(''); 
+    const [confirmNewPass, setConfirmNewPass] = useState('');
 
     return (
         <SafeAreaView style={{flex:1,backgroundColor:Colors.background}}>
         <ScrollView style={{paddingHorizontal:24}}>
+        <Spinner
+            visible={loading}
+            textContent={'Please Wait...'}
+            textStyle={{ color: '#FFF' }}
+        />
         <Text style={styles.title}>Your Account Settings</Text>
         <Image style={{
             height:150,
@@ -106,7 +183,7 @@ const App = ({navigation}) => {
             onTextchange={setMail}
         />
 
-        <BtnSolid text="Update Profile" />
+        <BtnSolid text="Update Profile" click={updateData}/>
         <View style={{height:1,backgroundColor:Colors.grey8C, marginVertical:40}}/>
         <Text style={styles.title}>Password Change</Text>
         <Input
@@ -127,9 +204,16 @@ const App = ({navigation}) => {
             onTextchange={setConfirmNewPass}
             secureTextEntry = {true}
         />
-        <BtnSolid text="Update Password" />
+        <BtnSolid text="Update Password" click={updatePass}/>
         <View style={{height:20}}/>
         </ScrollView>
+        <Snackbar
+                visible={snackbar}
+                onDismiss={()=>setsnackbar(false)}
+                style={{ width: Dimensions.get('window').width - 15 }}
+                action={{
+                label: 'Ok',
+            }}>{snackbarText}</Snackbar>
         </SafeAreaView>
     );
 };

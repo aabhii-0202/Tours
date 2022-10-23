@@ -2,8 +2,8 @@ import React, {useLayoutEffect,useEffect,useState} from 'react';
 
 import {
     SafeAreaView,ScrollView,
-    StyleSheet,Image,
     Text, TextInput, View,
+    StyleSheet,Image,
     TouchableOpacity,
 } from 'react-native';
 

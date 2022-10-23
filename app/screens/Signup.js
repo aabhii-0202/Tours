@@ -15,10 +15,10 @@ import { signup } from '../api/auth';
 
 const App = ({navigation}) => {
 
-    const [name,setName] = useState('test');
-    const [mail,setMail] = useState('user5@gmail.com');
-    const [password, setPassword] = useState('test1234');
-    const [confirm, setConfirm] = useState('test1234');
+    const [name,setName] = useState('');
+    const [mail,setMail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
     const [loading, setloading] = useState(false);
     const [snackbar, setsnackbar] = useState(false);
     const [snackbarText, setsnackbarText] = useState('');
@@ -41,19 +41,16 @@ const App = ({navigation}) => {
                 'passwordConfirm': confirm,
                 'role': selected,
             };
-            console.log(credentials);
             setloading(true);
             const res = await signup(credentials);
             if (res.status === 'success'){
                 await AsyncStorage.setItem('@token',res.token);
-                await AsyncStorage.setItem('@id',res.data.user.photo);
-                await AsyncStorage.setItem('@name',res.data.user.name);
-                await AsyncStorage.setItem('@email',res.data.user.email);
+                console.log('Token: ' + res.token);
                 setloading(false);
                 navigation.navigate('NavMain', {screen: 'Home'});
             }
             else {
-                setsnackbarText('Email Already registered, Try with different mail');
+                setsnackbarText(res.toString());
                 setsnackbar(true);
                 setloading(false);
             }
@@ -69,13 +66,6 @@ const App = ({navigation}) => {
                 textContent={'Please Wait...'}
                 textStyle={{ color: '#FFF' }}
             />
-            <Snackbar
-                visible={snackbar}
-                onDismiss={()=>setsnackbar(false)}
-                style={{ width: Dimensions.get('window').width * 0.9 }}
-                action={{
-                label: 'Ok',
-                }}>{snackbarText}</Snackbar>
             <Text style={styles.title}>Create New Account</Text>
             <Input
                 text="Name"
@@ -114,8 +104,14 @@ const App = ({navigation}) => {
             <Text style={styles.t1}>Already Have an Account</Text>
             <Text style={styles.t2}>Login Insted</Text>
             </TouchableOpacity>
-
             </ScrollView>
+            <Snackbar
+                visible={snackbar}
+                onDismiss={()=>setsnackbar(false)}
+                style={{ width: Dimensions.get('window').width * 0.9 }}
+                action={{
+                label: 'Ok',
+                }}>{snackbarText}</Snackbar>
         </SafeAreaView>
     );
 };

@@ -14,8 +14,8 @@ import { Snackbar } from 'react-native-paper';
 
 const App = ({navigation}) => {
 
-    const [mail,setMail] = useState('');
-    const [password, setPassword] = useState('');
+    const [mail,setMail] = useState('lead@gmail.com');
+    const [password, setPassword] = useState('test1234');
     const [loading, setloading] = useState(false);
     const [snackbar, setsnackbar] = useState(false);
     const [snackbarText, setsnackbarText] = useState('');
@@ -33,17 +33,14 @@ const App = ({navigation}) => {
             };
             setloading(true);
             const res = await login(credentials);
-
             if (res.status === 'success'){
                 await AsyncStorage.setItem('@token',res.token);
-                await AsyncStorage.setItem('@id',res.data.user.photo);
-                await AsyncStorage.setItem('@name',res.data.user.name);
-                await AsyncStorage.setItem('@email',res.data.user.email);
+                console.log('Token: ' + res.token);
                 setloading(false);
                 navigation.navigate('NavMain', {screen: 'Home'});
             }
             else {
-                setsnackbarText('Error Logging In Try Again Later');
+                setsnackbarText(res.toString());
                 setsnackbar(true);
                 setloading(false);
             }
@@ -57,13 +54,6 @@ const App = ({navigation}) => {
                 textContent={'Please Wait...'}
                 textStyle={{ color: '#FFF' }}
             />
-            <Snackbar
-                visible={snackbar}
-                onDismiss={()=>setsnackbar(false)}
-                style={{ width: Dimensions.get('window').width - 15 }}
-                action={{
-                label: 'Ok',
-                }}>{snackbarText}</Snackbar>
             <Text style={styles.title}>Please Login</Text>
             <View style={{justifyContent:'center'}}>
             <Input
@@ -83,8 +73,13 @@ const App = ({navigation}) => {
             <Text style={styles.t2}>Create New Insted</Text>
             </TouchableOpacity>
             </View>
-
-
+            <Snackbar
+                visible={snackbar}
+                onDismiss={()=>setsnackbar(false)}
+                style={{ width: Dimensions.get('window').width - 15 }}
+                action={{
+                label: 'Ok',
+                }}>{snackbarText}</Snackbar>
         </SafeAreaView>
     );
 };

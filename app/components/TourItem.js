@@ -76,7 +76,7 @@ const App = ({navigation, item}) => {
                         <Text style={styles.t5}>rating({item.item.ratingsQuantity})</Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={()=>navigation.navigate('NavMain', {screen:'TourDetails'})}
+                <TouchableOpacity onPress={()=>navigation.navigate('NavMain', {screen:'TourDetails',  params: { tourId: item.item._id }})}
                 style={styles.btn}>
                     <Text style={{
                         fontFamily:'OpenSans-SemiBold',

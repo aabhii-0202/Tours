@@ -9,8 +9,8 @@ export const login = async (credentials) => {
             'Content-Type': 'application/json',
         },
     })
-    .then((result) => { return result.data; })
-    .catch(err => { return err; });
+    .then(result => {return result.data;})
+    .catch((err) => {return err;});
 };
 
 export const signup = async (credentials) => {
