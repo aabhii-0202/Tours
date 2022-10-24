@@ -55,7 +55,7 @@ const App = ({navigation}) => {
         return (
             <TouchableOpacity onPress={ async ()=>{
                 await AsyncStorage.setItem('@token','');
-                navigation.navigate('NavAuth', {screen: 'Signup'});
+                navigation.navigate('NavAuth', {screen: 'Login'});
             }}
             style={{
                 backgroundColor: '#ffffff',
