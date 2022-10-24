@@ -1,5 +1,5 @@
 import React, {useLayoutEffect,useEffect,useState} from 'react';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     FlatList,
     Text, View,Dimensions,
@@ -53,7 +53,10 @@ const App = ({navigation}) => {
 
     const HeaderRightButton = ({ navigation }) => {
         return (
-            <TouchableOpacity onPress={()=>navigation.navigate('NavAuth', {screen: 'Signup'})}
+            <TouchableOpacity onPress={ async ()=>{
+                await AsyncStorage.setItem('@token','');
+                navigation.navigate('NavAuth', {screen: 'Signup'});
+            }}
             style={{
                 backgroundColor: '#ffffff',
                 height: 40,

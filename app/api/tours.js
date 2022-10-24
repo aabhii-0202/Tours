@@ -11,9 +11,14 @@ export const getAllTour = async () => {
 };
 
 export const getSpecificTour = async (tourId) => {
+    // console.log(`/tours/${tourId}`);
     return await API({
         method: 'GET',
         url: `/tours/${tourId}`,
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + await AsyncStorage.getItem('@token'),
+        },
     })
     .then(result => {return result.data;})
     .catch(err => {return err;});

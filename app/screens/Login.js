@@ -14,7 +14,7 @@ import { Snackbar } from 'react-native-paper';
 
 const App = ({navigation}) => {
 
-    const [mail,setMail] = useState('lead@gmail.com');
+    const [mail,setMail] = useState('abhi@gmail.com');
     const [password, setPassword] = useState('test1234');
     const [loading, setloading] = useState(false);
     const [snackbar, setsnackbar] = useState(false);

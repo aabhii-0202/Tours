@@ -74,7 +74,6 @@ const App = ({route, navigation}) => {
                 let d = res.data.data.difficulty;
                 setdifficulty(d.charAt(0).toUpperCase() + d.slice(1));
                 setloading(false);
-                // console.log(res.data.data.guides)
             } else {
                 setsnackbarText('Something went wrong! Please Login Again');
                 setsnackbar(true);
@@ -121,7 +120,6 @@ const App = ({route, navigation}) => {
         {
             loginAgain ? LoginAgain() :
             <ScrollView>
-            <Text>{Data.name}</Text>
             <Image
                 style={{
                     height:250,
@@ -185,7 +183,7 @@ const App = ({route, navigation}) => {
                 <Text style={styles.desc}>{Data.summary}</Text>
                 <Text style={styles.desc}>{Data.description}</Text>
 
-                <Text style={styles.title}>Your Tour Guides</Text>
+                {Data.guides.length > 0 ? <Text style={styles.title}>Your Tour Guides</Text> : null}
                 <FlatList
                     data={Data.guides}
                     horizontal
@@ -193,7 +191,7 @@ const App = ({route, navigation}) => {
                         let role = item.role;
                         role = role.charAt(0).toUpperCase() + role.slice(1);
                         return (
-                            <View style={{marginTop:20}}>
+                            <View style={{marginTop:20,marginHorizontal:20,}}>
                                 <Image
                                     style={{
                                         borderRadius:40,
@@ -209,7 +207,7 @@ const App = ({route, navigation}) => {
                         );
                     }}
                 />
-                <Text style={styles.title}>Reviews</Text>
+                {Data.reviews.length > 0 ? <Text style={styles.title}>Reviews</Text> : null }
                 <FlatList
                     data={Data.reviews}
                     horizontal
@@ -227,18 +225,20 @@ const App = ({route, navigation}) => {
                                 marginTop:20,
                                 justifyContent:'space-between',
                             }}>
-                                <Text style={{
-                                    fontFamily:'OpenSans-SemiBold',
-                                    fontSize:FontSizes.h3,
-                                    color:Colors.primary1,
-                                }}>{date}</Text>
-                                <Text style={{
-                                    fontFamily:'OpenSans-Regular',
-                                    fontSize:FontSizes.p1,
-                                    color:Colors.txtBlack,
-                                    maxWidth: Dimensions.get('window').width * 0.5,
-                                    marginTop:10,
-                                }}>{item.review}</Text>
+                                <View>
+                                    <Text style={{
+                                        fontFamily:'OpenSans-SemiBold',
+                                        fontSize:FontSizes.h3,
+                                        color:Colors.primary1,
+                                    }}>{date}</Text>
+                                    <Text style={{
+                                        fontFamily:'OpenSans-Regular',
+                                        fontSize:FontSizes.p1,
+                                        color:Colors.txtBlack,
+                                        maxWidth: Dimensions.get('window').width * 0.5,
+                                        marginTop:10,
+                                    }}>{item.review}</Text>
+                                </View>
                                 <Stars num={item.rating}/>
                             </View>
                         );
@@ -246,6 +246,15 @@ const App = ({route, navigation}) => {
                 />
             </View>
             <View style={{height:50}}/>
+            <Text style={{
+                ...styles.title,marginTop:0,
+                position:'absolute',
+                paddingHorizontal:12,
+                paddingVertical:6,
+                backgroundColor:Colors.primary1,
+                top:230, right:10,
+                color:Colors.white,
+            }}>{Data.name}</Text>
             </ScrollView>
         }
         <Snackbar
