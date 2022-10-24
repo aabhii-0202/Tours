@@ -16,6 +16,7 @@ import { getSpecificTour } from '../api/tours';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Snackbar } from 'react-native-paper';
 import moment from 'moment';
+import Stars from '../components/Stars';
 
 
 const App = ({route, navigation}) => {
@@ -73,7 +74,7 @@ const App = ({route, navigation}) => {
                 let d = res.data.data.difficulty;
                 setdifficulty(d.charAt(0).toUpperCase() + d.slice(1));
                 setloading(false);
-                console.log(res.data.data.guides)
+                // console.log(res.data.data.guides)
             } else {
                 setsnackbarText('Something went wrong! Please Login Again');
                 setsnackbar(true);
@@ -208,7 +209,43 @@ const App = ({route, navigation}) => {
                         );
                     }}
                 />
+                <Text style={styles.title}>Reviews</Text>
+                <FlatList
+                    data={Data.reviews}
+                    horizontal
+                    renderItem = {({item}) => {
+                        let date = item.createdAt;
+                        date = moment(date).utc().format('DD-MM-YYYY');
+                        return (
+                            <View style={{
+                                marginEnd:20,
+                                borderWidth:1,
+                                borderColor:Colors.primary4,
+                                borderRadius:8,
+                                paddingHorizontal:18,
+                                paddingVertical:8,
+                                marginTop:20,
+                                justifyContent:'space-between',
+                            }}>
+                                <Text style={{
+                                    fontFamily:'OpenSans-SemiBold',
+                                    fontSize:FontSizes.h3,
+                                    color:Colors.primary1,
+                                }}>{date}</Text>
+                                <Text style={{
+                                    fontFamily:'OpenSans-Regular',
+                                    fontSize:FontSizes.p1,
+                                    color:Colors.txtBlack,
+                                    maxWidth: Dimensions.get('window').width * 0.5,
+                                    marginTop:10,
+                                }}>{item.review}</Text>
+                                <Stars num={item.rating}/>
+                            </View>
+                        );
+                    }}
+                />
             </View>
+            <View style={{height:50}}/>
             </ScrollView>
         }
         <Snackbar
