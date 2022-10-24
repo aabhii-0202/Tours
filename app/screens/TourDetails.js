@@ -87,6 +87,8 @@ const App = ({route, navigation}) => {
     const LoginAgain = () => {
         return (
         <View>
+            <Text style={{...styles.title, alignSelf:'center',maxWidth:Dimensions.get('window').width * 0.8, textAlign: 'center'}}>
+                We think that your are not logged in.</Text>
             <TouchableOpacity
             onPress={()=>navigation.navigate('NavAuth', {screen: 'Login'})}
             style={{
@@ -183,7 +185,7 @@ const App = ({route, navigation}) => {
                 <Text style={styles.desc}>{Data.summary}</Text>
                 <Text style={styles.desc}>{Data.description}</Text>
 
-                {Data.guides.length > 0 ? <Text style={styles.title}>Your Tour Guides</Text> : null}
+                {Data.guides && Data.guides.length > 0 ? <Text style={styles.title}>Your Tour Guides</Text> : null}
                 <FlatList
                     data={Data.guides}
                     horizontal
@@ -207,7 +209,7 @@ const App = ({route, navigation}) => {
                         );
                     }}
                 />
-                {Data.reviews.length > 0 ? <Text style={styles.title}>Reviews</Text> : null }
+                {Data.reviews && Data.reviews.length > 0 ? <Text style={styles.title}>Reviews</Text> : null }
                 <FlatList
                     data={Data.reviews}
                     horizontal
