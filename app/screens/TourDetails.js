@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
         color:Colors.grey8C,
         marginTop:20,
         textAlign:'justify',
-    }
+    },
 });
 
 

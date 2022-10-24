@@ -13,14 +13,8 @@ const App = ({navigation}) => {
 
 
     return (
-        <SafeAreaView style={{flex:1}}>
-        <ScrollView style={{paddingHorizontal:24}}>
-        <TouchableOpacity onPress={()=>navigation.navigate('NavMain', {screen: 'Home'})}>
-            <Text style={{
-                fontSize:FontSizes.h,
-            }}>Splash Screen</Text>
-        </TouchableOpacity>
-        </ScrollView>
+        <SafeAreaView style={{flex:1,backgroundColor: Colors.primary3}}>
+        
         </SafeAreaView>
     );
 };

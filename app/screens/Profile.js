@@ -1,9 +1,8 @@
 import React, {useLayoutEffect,useEffect,useState} from 'react';
-
 import {
     SafeAreaView,ScrollView,
     StyleSheet,Image,Dimensions,
-    Text, TextInput, View,
+    Text, View,
     TouchableOpacity,
 } from 'react-native';
 import { Colors, FontSizes } from '../helper/theme';
@@ -226,7 +225,7 @@ const styles = StyleSheet.create({
     color:Colors.primary1,
     marginTop:20,
     alignSelf:'center',
- }
+ },
 });
 
 
