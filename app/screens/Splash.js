@@ -1,23 +1,74 @@
-import React, {useLayoutEffect,useEffect,useState} from 'react';
+import React, {useLayoutEffect,useEffect,useState, useRef} from 'react';
 
 import {
-    SafeAreaView,ScrollView,
-    Text, TextInput, View,
-    StyleSheet,Image,
-    TouchableOpacity,
+    SafeAreaView, View,
+    StyleSheet,Animated,
 } from 'react-native';
 
 import {Colors, FontSizes} from '../helper/theme';
 
 const App = ({navigation}) => {
 
+    const progress = useRef(new Animated.Value(0.5)).current;
+    const scale = useRef(new Animated.Value(1)).current;
+
+    useEffect(()=>{
+        Animated.loop(
+            Animated.parallel([
+                Animated.sequence([
+                    Animated.timing(progress, {toValue: 1, useNativeDriver: true}),
+                    Animated.timing(progress, {toValue: 0.5, useNativeDriver: true}),
+                ]),
+                Animated.sequence([
+                    Animated.timing(scale, {toValue: 1.5, useNativeDriver: true}),
+                    Animated.timing(scale, {toValue: 1, useNativeDriver: true}),
+                ]),
+            ]),
+        ).start();
+        setTimeout(() => navigation.navigate('NavMain'), 1500);
+    },[navigation, progress, scale]);
+
+    const SIZE = 100.0;
 
     return (
-        <SafeAreaView style={{flex:1,backgroundColor: Colors.primary3}}>
-        
+        <SafeAreaView style={styles.container}>
+            <Animated.View
+            style={[
+                styles.square,
+                {
+                    borderRadius: progress.interpolate({
+                        inputRange: [0.5, 1],
+                        outputRange: [SIZE / 4, SIZE / 2],
+                    }),
+                    opacity: progress,
+                    transform: [
+                        { scale },
+                        { rotate: '45deg'
+                        //     progress.interpolate({
+                        //     inputRange: [1, 2],
+                        //     outputRange: [ Math.PI, 2 * Math.PI],
+                        // }),
+                        },
+                    ],
+                },
+            ]}/>
         </SafeAreaView>
     );
 };
 
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor: Colors.white,
+        alignItems: 'center',
+        justifyContent:'center',
+    },
+    square: {
+        width:100,
+        height:100,
+        backgroundColor: Colors.primary1,
+        borderRadius:16,
+    },
+});
 
 export default App;
