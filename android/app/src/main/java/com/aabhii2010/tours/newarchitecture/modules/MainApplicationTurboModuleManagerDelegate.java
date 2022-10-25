@@ -1,4 +1,4 @@
-package com.tours.newarchitecture.modules;
+package com.aabhii2010.tours.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

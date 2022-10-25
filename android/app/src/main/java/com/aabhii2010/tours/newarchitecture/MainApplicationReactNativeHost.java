@@ -1,4 +1,4 @@
-package com.tours.newarchitecture;
+package com.aabhii2010.tours.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.tours.BuildConfig;
-import com.tours.newarchitecture.components.MainComponentsRegistry;
-import com.tours.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.aabhii2010.tours.BuildConfig;
+import com.aabhii2010.tours.newarchitecture.components.MainComponentsRegistry;
+import com.aabhii2010.tours.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.tours;
+package com.aabhii2010.tours;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

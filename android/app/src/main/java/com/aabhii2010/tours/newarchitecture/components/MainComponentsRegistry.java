@@ -1,4 +1,4 @@
-package com.tours.newarchitecture.components;
+package com.aabhii2010.tours.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
