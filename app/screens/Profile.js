@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { Colors, FontSizes } from '../helper/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Input from '../components/Input';
 import { BtnSolid } from '../components/Buttons';
 import { getMe, updateMe, updatePassword } from '../api/user';
@@ -163,14 +164,25 @@ const App = ({navigation}) => {
             textStyle={{ color: '#FFF' }}
         />
         <Text style={styles.title}>Your Account Settings</Text>
-        <Image style={{
-            height:150,
-            width:150,
-            borderRadius:200,
-            alignSelf:'center',
-            marginTop:20,
-        }}
-            source={require('../assets/images/avatar.png')}/>
+        <View>
+            <Image style={{
+                height:150,
+                width:150,
+                borderRadius:200,
+                alignSelf:'center',
+                marginTop:20,
+            }}
+                source={require('../assets/images/avatar.png')}/>
+            <TouchableOpacity
+            style={{
+                position:'absolute',
+                bottom:0, right:100,
+
+            }}
+            >
+                <AntDesign name="edit" size={30} color={Colors.primary1}/>
+            </TouchableOpacity>
+        </View>
         <Input
             text="Name"
             value={name}
