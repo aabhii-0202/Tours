@@ -14,14 +14,27 @@ export const getMe = async () => {
     .catch(err => {return err;});
 };
 
-export const updateMe = async (credentials) => {
-    console.log(credentials);
+export const updatePhoto = async (photo) => {
+    return await API({
+        method: 'PATCH',
+        url: '/users/updateMe',
+        data: photo,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'authorization': 'Bearer ' + await AsyncStorage.getItem('@token'),
+        },
+    })
+    .then(result => {return result.data;})
+    .catch(err => {return err;});
+};
+
+export const updateDetails = async (credentials) => {
     return await API({
         method: 'PATCH',
         url: '/users/updateMe',
         data: credentials,
         headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
             'authorization': 'Bearer ' + await AsyncStorage.getItem('@token'),
         },
     })

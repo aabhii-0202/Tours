@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Input from '../components/Input';
 import { BtnSolid } from '../components/Buttons';
-import { getMe, updateMe, updatePassword } from '../api/user';
+import { getMe, updateDetails, updatePhoto, updatePassword } from '../api/user';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Snackbar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -106,12 +106,20 @@ const App = ({navigation}) => {
             setloading(false);
         }
         else {
-            const credentials = new FormData();
-            credentials.append('name', name);
-            credentials.append('email', mail);
-            const res = await updateMe(credentials);
+            const credentials = {
+                'name': name,
+                'email': mail,
+            };
+            const res = await updateDetails(credentials);
+            if (res.status && res.status === 'success'){
+                setName(res.data.user.name);
+                setMail(res.data.user.email);
+            }
+            else {
+                setName('');
+                setMail('');
+            }
             setloading(false);
-            console.log(res);
         }
     };
 
