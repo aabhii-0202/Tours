@@ -6,11 +6,13 @@ import {
 } from 'react-native';
 
 import {Colors, FontSizes} from '../helper/theme';
+import {useNavigation} from '@react-navigation/native';
 
 const App = ({navigation}) => {
 
     const progress = useRef(new Animated.Value(0.5)).current;
     const scale = useRef(new Animated.Value(1)).current;
+    const nav = useNavigation();
 
     useEffect(()=>{
         Animated.loop(
@@ -25,8 +27,13 @@ const App = ({navigation}) => {
                 ]),
             ]),
         ).start();
-        setTimeout(() => navigation.navigate('NavMain'), 1500);
-    },[navigation, progress, scale]);
+        setTimeout(() => {
+            nav.reset({
+                index: 0,
+                routes: [{name: 'NavMain'}],
+        });
+        }, 1500);
+    },[nav, progress, scale]);
 
     const SIZE = 100.0;
 

@@ -14,6 +14,7 @@ import { getMe, updateDetails, updatePhoto, updatePassword } from '../api/user';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Snackbar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
 
 const App = ({navigation}) => {
@@ -79,6 +80,7 @@ const App = ({navigation}) => {
             </TouchableOpacity>
         );
     };
+    const nav = useNavigation();
 
     useEffect(()=>{
         async function getMydata() {
@@ -92,11 +94,14 @@ const App = ({navigation}) => {
             }
             else {
                 setloading(false);
-                navigation.navigate('NavAuth',{screen: 'Login'});
+                nav.reset({
+                        index: 0,
+                        routes: [{name: 'NavAuth'}],
+                });
             }
         }
         getMydata();
-    },[navigation]);
+    },[nav, navigation]);
 
     const updateData = async () => {
         setloading(true);
