@@ -9,7 +9,9 @@ import { Colors, FontSizes } from '../helper/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import TourItem from '../components/TourItem';
+import BookingItems from '../components/BookingItems';
 import { getAllTour } from '../api/tours';
+import { getMyBookings } from '../api/booking';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Snackbar } from 'react-native-paper';
 
@@ -93,12 +95,22 @@ const App = ({navigation}) => {
             }
         }
         getAll();
-    },[]);
+
+        async function getBookings() {
+            const userId = await AsyncStorage.getItem('@_id');
+            const bookings = await getMyBookings(userId);
+            if (bookings.status === 'success'){
+                setMyBookings(bookings.data.data);
+            }
+        }
+        getBookings();
+    },[myBookings,itemList]);
 
     const [loading, setloading] = useState(true);
     const [snackbar, setsnackbar] = useState(false);
     const [snackbarText, setsnackbarText] = useState('');
     const [itemList, setItemList] = useState([]);
+    const [myBookings, setMyBookings] = useState([]);
 
     return (
         <View style={{flex:1,backgroundColor:Colors.primary6}}>
@@ -107,13 +119,14 @@ const App = ({navigation}) => {
                 textContent={'Please Wait...'}
                 textStyle={{ color: '#FFF' }}
             />
-            <Snackbar
-                visible={snackbar}
-                onDismiss={()=>setsnackbar(false)}
-                style={{ width: Dimensions.get('window').width - 15 }}
-                action={{
-                label: 'Ok',
-                }}>{snackbarText}</Snackbar>
+        { itemList && itemList.length > 0 ?
+            <Text style={{
+                fontFamily:'OpenSans-SemiBold',
+                fontSize:FontSizes.h,
+                color:Colors.txtBlack,
+                marginTop:20,
+                marginStart:20,
+            }}>Available Tours</Text> : null}
         <FlatList
             horizontal
             data={itemList}
@@ -122,6 +135,30 @@ const App = ({navigation}) => {
                     <TourItem navigation={navigation} item={item}/>
                 );
             }}/>
+        { myBookings && myBookings.length > 0 ?
+            <Text style={{
+                fontFamily:'OpenSans-SemiBold',
+                fontSize:FontSizes.h,
+                color:Colors.txtBlack,
+                marginTop:20,
+                marginBottom:8,
+                marginStart:20,
+            }}>My Bookings</Text> : null}
+            <FlatList
+                horizontal
+                data={myBookings}
+                renderItem={item => {
+                    return (
+                        <BookingItems navigation={navigation} item={item}/>
+                    );
+                }}/>
+            <Snackbar
+                visible={snackbar}
+                onDismiss={()=>setsnackbar(false)}
+                style={{ width: Dimensions.get('window').width - 15 }}
+                action={{
+                label: 'Ok',
+            }}>{snackbarText}</Snackbar>
         </View>
     );
 };
