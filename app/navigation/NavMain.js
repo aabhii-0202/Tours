@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
 import TourDetails from '../screens/TourDetails';
+import BookingDetails from '../screens/BookingDetails';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ export default function App() {
             <Stack.Screen name="Home" component={Home} options={{ headerShown: true }} />
             <Stack.Screen name="Profile" component={Profile} options={{ headerShown: true }} />
             <Stack.Screen name="TourDetails" component={TourDetails} options={{ headerShown: true }} />
+            <Stack.Screen name="BookingDetails" component={BookingDetails} options={{ headerShown: true }} />
         </Stack.Navigator>
     );
 }

@@ -126,7 +126,7 @@ const App = ({navigation}) => {
                 color:Colors.txtBlack,
                 marginTop:20,
                 marginStart:20,
-            }}>Available Tours</Text> : null}
+            }}>Available Tours ({itemList.length})</Text> : null}
         <FlatList
             horizontal
             data={itemList}
@@ -143,7 +143,7 @@ const App = ({navigation}) => {
                 marginTop:20,
                 marginBottom:8,
                 marginStart:20,
-            }}>My Bookings</Text> : null}
+            }}>My Bookings ({myBookings.length})</Text> : null}
             <FlatList
                 horizontal
                 data={myBookings}

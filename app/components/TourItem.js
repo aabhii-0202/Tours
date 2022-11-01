@@ -38,7 +38,7 @@ const App = ({navigation, item}) => {
             <View style={{
                 position:'absolute',
                 right:10,
-                top:180,
+                top:120,
             }}>
                 <Text style={styles.t6}>{item.item.name}</Text>
             </View>

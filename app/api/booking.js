@@ -29,3 +29,16 @@ export const getMyBookings = async (userId) => {
     .then(result => {return result.data;})
     .catch(err => {return err;});
 };
+
+export const deleteBooking = async (bookingId) => {
+    return await API({
+        method: 'DELETE',
+        url: `/booking/${bookingId}`,
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + await AsyncStorage.getItem('@token'),
+        },
+    })
+    .then(result => {return result.data;})
+    .catch(err => {return err;});
+};
