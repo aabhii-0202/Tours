@@ -35,6 +35,7 @@ const App = ({navigation}) => {
             const res = await login(credentials);
             if (res.status === 'success'){
                 await AsyncStorage.setItem('@token',res.token);
+                await AsyncStorage.setItem('@_id',res.data.user._id);
                 console.log('Token: ' + res.token);
                 setloading(false);
                 navigation.navigate('NavMain', {screen: 'Home'});

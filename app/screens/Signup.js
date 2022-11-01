@@ -39,12 +39,13 @@ const App = ({navigation}) => {
                 'email': mail,
                 'password': password,
                 'passwordConfirm': confirm,
-                'role': selected,
+                // 'role': selected,
             };
             setloading(true);
             const res = await signup(credentials);
             if (res.status === 'success'){
                 await AsyncStorage.setItem('@token',res.token);
+                await AsyncStorage.setItem('@_id',res.data.user._id);
                 console.log('Token: ' + res.token);
                 setloading(false);
                 navigation.navigate('NavMain', {screen: 'Home'});
@@ -90,12 +91,12 @@ const App = ({navigation}) => {
                 secureTextEntry = {true}
             />
 
-            <DropDown
+            {/* <DropDown
                 data={data}
                 lable="Select your role"
                 selected={selected}
                 setSelected={setSelected}
-            />
+            /> */}
 
             <BtnSolid text="Submit"  click={signupClicked} />
             <TouchableOpacity

@@ -1,4 +1,5 @@
 import React, {useLayoutEffect,useEffect,useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
     SafeAreaView,ScrollView,
@@ -13,10 +14,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { getSpecificTour } from '../api/tours';
+import { createBooking } from '../api/booking';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Snackbar } from 'react-native-paper';
 import moment from 'moment';
 import Stars from '../components/Stars';
+import { BtnSolid } from '../components/Buttons';
 
 
 const App = ({route, navigation}) => {
@@ -110,6 +113,28 @@ const App = ({route, navigation}) => {
             </TouchableOpacity>
         </View>
         );
+    };
+
+    const book = async () => {
+        setloading(true);
+        const credentials = {
+            'tour': Data._id,
+            'user': await AsyncStorage.getItem('@_id'),
+            'price': Data.price,
+        };
+
+        const res =  await createBooking(credentials);
+
+        if (res.status === 'success'){
+            setsnackbarText('Booking successful.');
+            setsnackbar(true);
+        }
+        else {
+            setsnackbarText('Facing issue while booking please try again.');
+            setsnackbar(true);
+        }
+        setloading(false);
+
     };
 
     return (
@@ -258,6 +283,14 @@ const App = ({route, navigation}) => {
                 color:Colors.white,
             }}>{Data.name}</Text>
             </ScrollView>
+        }
+        { !loginAgain ?
+            <View style={{
+                marginHorizontal:24,
+                marginBottom:20,
+            }}>
+                <BtnSolid text="Book" click={book}/>
+            </View> : null
         }
         <Snackbar
             visible={snackbar}
