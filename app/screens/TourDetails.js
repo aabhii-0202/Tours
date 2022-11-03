@@ -128,6 +128,9 @@ const App = ({route, navigation}) => {
         if (res.status === 'success'){
             setsnackbarText('Booking successful.');
             setsnackbar(true);
+            setTimeout(() => {
+                navigation.pop();
+            }, 2000);
         }
         else {
             setsnackbarText('Facing issue while booking please try again.');

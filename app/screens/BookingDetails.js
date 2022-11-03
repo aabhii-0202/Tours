@@ -120,16 +120,29 @@ const App = ({route, navigation}) => {
         setloading(true);
         await deleteBooking(route.params.bookingId);
         setloading(false);
-        navigation.pop();
+        setsnackbarText('Cancellation successful.');
+            setsnackbar(true);
+            setTimeout(() => {
+                navigation.pop();
+            }, 2000);
 
     };
 
-    const Rate = () => {
+    const RateOrCancel = () => {
         const [num,setNum] = useState(0);
         const size = 50;
         const [review, setReview] = useState('');
+        const TourIsOver = false;
         return (
-            <View style={{marginHorizontal: 24,marginBottom:20}}>
+            !TourIsOver ?
+                <View style={{
+                    marginHorizontal:24,
+                    marginBottom:20,
+                }}>
+                    <BtnSolid text="Cancel" click={cancel}/>
+                </View>
+                :
+                <View style={{marginHorizontal: 24,marginBottom:20}}>
                 <Text style={styles.title}>Rate The Tour</Text>
                 <View style={{
                     flexDirection:'row',
@@ -190,7 +203,7 @@ const App = ({route, navigation}) => {
 
 
                 }}/>
-            </View>
+                </View>
         );
     };
 
@@ -291,43 +304,6 @@ const App = ({route, navigation}) => {
                         );
                     }}
                 />
-                {Data.reviews && Data.reviews.length > 0 ? <Text style={styles.title}>Reviews</Text> : null }
-                <FlatList
-                    data={Data.reviews}
-                    horizontal
-                    renderItem = {({item}) => {
-                        let date = item.createdAt;
-                        date = moment(date).utc().format('DD-MM-YYYY');
-                        return (
-                            <View style={{
-                                marginEnd:20,
-                                borderWidth:1,
-                                borderColor:Colors.primary4,
-                                borderRadius:8,
-                                paddingHorizontal:18,
-                                paddingVertical:8,
-                                marginTop:20,
-                                justifyContent:'space-between',
-                            }}>
-                                <View>
-                                    <Text style={{
-                                        fontFamily:'OpenSans-SemiBold',
-                                        fontSize:FontSizes.h3,
-                                        color:Colors.primary1,
-                                    }}>{date}</Text>
-                                    <Text style={{
-                                        fontFamily:'OpenSans-Regular',
-                                        fontSize:FontSizes.p1,
-                                        color:Colors.txtBlack,
-                                        maxWidth: Dimensions.get('window').width * 0.5,
-                                        marginTop:10,
-                                    }}>{item.review}</Text>
-                                </View>
-                                <Stars num={item.rating}/>
-                            </View>
-                        );
-                    }}
-                />
             </View>
             <Text style={{
                 ...styles.title,marginTop:0,
@@ -338,16 +314,8 @@ const App = ({route, navigation}) => {
                 top:230, right:10,
                 color:Colors.white,
             }}>{Data.name}</Text>
-            {/* <Rate/> */}
+            <RateOrCancel/>
             </ScrollView>
-        }
-        { !loginAgain ?
-            <View style={{
-                marginHorizontal:24,
-                marginBottom:20,
-            }}>
-                <BtnSolid text="Cancel" click={cancel}/>
-            </View> : null
         }
         <Snackbar
             visible={snackbar}
