@@ -15,6 +15,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { getSpecificTour } from '../api/tours';
 import { deleteBooking } from '../api/booking';
+import { rateTour } from '../api/rating';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Snackbar } from 'react-native-paper';
 import moment from 'moment';
@@ -121,6 +122,76 @@ const App = ({route, navigation}) => {
         setloading(false);
         navigation.pop();
 
+    };
+
+    const Rate = () => {
+        const [num,setNum] = useState(0);
+        const size = 50;
+        const [review, setReview] = useState('');
+        return (
+            <View style={{marginHorizontal: 24,marginBottom:20}}>
+                <Text style={styles.title}>Rate The Tour</Text>
+                <View style={{
+                    flexDirection:'row',
+                    marginVertical:12,
+                }}>
+                <TouchableOpacity onPress={()=>setNum(1)}>
+                    <AntDesign name="star" size={size} color={ num >= 1 ? Colors.primary1 : Colors.grey8C } />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>setNum(2)}>
+                    <AntDesign name="star" size={size} color={ num >= 2 ? Colors.primary1 : Colors.grey8C } />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>setNum(3)}>
+                    <AntDesign name="star" size={size} color={ num >= 3 ? Colors.primary1 : Colors.grey8C } />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>setNum(4)}>
+                    <AntDesign name="star" size={size} color={ num >= 4 ? Colors.primary1 : Colors.grey8C } />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>setNum(5)}>
+                    <AntDesign name="star" size={size} color={ num >= 5 ? Colors.primary1 : Colors.grey8C } />
+                </TouchableOpacity>
+                </View>
+                <Text style={styles.title}>Write Your Review</Text>
+                <TextInput
+                    style={styles.reviews}
+                    value={review}
+                    placeholder="Write Review Here"
+                    multiline
+                    onChangeText={setReview}
+                />
+                <BtnSolid text="Submit" click={ async ()=>{
+                    setloading(true);
+                    if (num === 0) {
+                        setsnackbarText('Please Give Rating');
+                        setsnackbar(true);
+                        setloading(false);
+                    }
+                    else if (review === ''){
+                        setsnackbarText('Please Write Review');
+                        setsnackbar(true);
+                        setloading(false);
+                    }
+                    else {
+                        const data = {
+                            'review': review,
+                            'rating': num,
+                        };
+                        const res = await rateTour(data, route.params.tourId);
+                        console.log(res);
+                        if (res.status === 'success'){
+                            setloading(false);
+                        }
+                        else {
+                            setsnackbarText('Unable to rate now try again later');
+                            setsnackbar(true);
+                            setloading(false);
+                        }
+                    }
+
+
+                }}/>
+            </View>
+        );
     };
 
     return (
@@ -258,7 +329,6 @@ const App = ({route, navigation}) => {
                     }}
                 />
             </View>
-            <View style={{height:50}}/>
             <Text style={{
                 ...styles.title,marginTop:0,
                 position:'absolute',
@@ -268,6 +338,7 @@ const App = ({route, navigation}) => {
                 top:230, right:10,
                 color:Colors.white,
             }}>{Data.name}</Text>
+            {/* <Rate/> */}
             </ScrollView>
         }
         { !loginAgain ?
@@ -315,6 +386,17 @@ const styles = StyleSheet.create({
         color:Colors.grey8C,
         marginTop:20,
         textAlign:'justify',
+    },
+    reviews:{
+        fontFamily:'OpenSans-Regular',
+        fontSize:FontSizes.p1,
+        backgroundColor:Colors.primary6,
+        borderRadius:4,marginTop:8,
+        height:150,
+        textAlignVertical: 'top',
+        paddingHorizontal:20,
+        paddingVertical:12,
+        color:Colors.txtBlack,
     },
 });
 

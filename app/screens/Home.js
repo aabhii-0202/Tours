@@ -107,7 +107,7 @@ const App = ({navigation}) => {
             }
             else {
                 setMyBookings([]);
-                setsnackbarText('Your\'e not logged in!')
+                setsnackbarText('Your\'e not logged in!');
                 setsnackbar(true);
             }
         }
@@ -161,6 +161,7 @@ const App = ({navigation}) => {
                 horizontal
                 data={myBookings}
                 renderItem={item => {
+                    console.log(item);
                     return (
                         <BookingItems navigation={navigation} item={item}/>
                     );
