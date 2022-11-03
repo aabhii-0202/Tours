@@ -90,6 +90,7 @@ const App = ({navigation}) => {
                 setName(data.name);
                 setMail(data.email);
                 setpic(data.photo);
+                setid(data._id);
                 setloading(false);
             }
             else {
@@ -161,7 +162,8 @@ const App = ({navigation}) => {
     const [snackbarText, setsnackbarText] = useState('');
 
     const [name,setName] = useState('');
-    const [mail,setMail] = useState();
+    const [mail,setMail] = useState('');
+    const [id, setid] = useState('');
     const [pic, setpic] = useState(null);
 
     const [currentpass, setcurrentPass] = useState('');
@@ -196,6 +198,12 @@ const App = ({navigation}) => {
                 <AntDesign name="edit" size={30} color={Colors.primary1}/>
             </TouchableOpacity>
         </View>
+        <Input
+            text="Id:"
+            value={id}
+            onTextchange={setMail}
+            noinput={true}
+        />
         <Input
             text="Name"
             value={name}

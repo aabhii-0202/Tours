@@ -4,17 +4,26 @@ import { Colors, FontSizes } from '../helper/theme';
 
 
 const App = (props) => {
-
+    let inputEnabled = true;
+    try {
+        inputEnabled = !props.noinput;
+    }
+    catch (e) {
+        inputEnabled = true;
+    }
     return (
         <View style={{marginTop:15}}>
             <Text style={props.textStyle ? props.textStyle : styles.text}>{props.text}</Text>
+            { inputEnabled ?
             <TextInput
                 style={props.inputStyle ? props.inputStyle : styles.inputbox}
                 value={props.value}
                 onChangeText={props.onTextchange}
                 keyboardType={props.type !== null ? props.type : 'default'}
                 secureTextEntry={props.secureTextEntry ? props.secureTextEntry : false}
-            />
+            /> :
+            <Text style={props.inputStyle ? props.inputStyle : styles.inputbox}>{props.value}</Text>
+            }
         </View>
     );
 };

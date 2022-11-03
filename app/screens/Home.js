@@ -14,6 +14,7 @@ import { getAllTour } from '../api/tours';
 import { getMyBookings } from '../api/booking';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Snackbar } from 'react-native-paper';
+import { useIsFocused } from '@react-navigation/native';
 
 const App = ({navigation}) => {
     useLayoutEffect(() => {
@@ -82,6 +83,9 @@ const App = ({navigation}) => {
         );
     };
 
+    const isFocused = useIsFocused();
+
+
     useEffect(()=>{
         async function getAll() {
             const res = await getAllTour();
@@ -94,7 +98,6 @@ const App = ({navigation}) => {
                 setloading(false);
             }
         }
-        getAll();
 
         async function getBookings() {
             const userId = await AsyncStorage.getItem('@_id');
@@ -102,9 +105,19 @@ const App = ({navigation}) => {
             if (bookings.status === 'success'){
                 setMyBookings(bookings.data.data);
             }
+            else {
+                setMyBookings([]);
+                setsnackbarText('Your\'e not logged in!')
+                setsnackbar(true);
+            }
         }
-        getBookings();
-    },[myBookings,itemList]);
+
+        if (isFocused){
+            setloading(true);
+            getAll();
+            getBookings();
+        }
+    },[isFocused]);
 
     const [loading, setloading] = useState(true);
     const [snackbar, setsnackbar] = useState(false);
