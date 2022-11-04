@@ -20,7 +20,7 @@ import { Snackbar } from 'react-native-paper';
 import moment from 'moment';
 import Stars from '../components/Stars';
 import { BtnSolid } from '../components/Buttons';
-
+import Map from '../components/Map';
 
 const App = ({route, navigation}) => {
 
@@ -236,8 +236,9 @@ const App = ({route, navigation}) => {
                             </View>
                         );
                     }}
-                />
-                {Data.reviews && Data.reviews.length > 0 ? <Text style={styles.title}>Reviews</Text> : null }
+                /></View>
+                <Map/>
+                {Data.reviews && Data.reviews.length > 0 ? <Text style={{...styles.title, marginStart: 24, marginTop: 10}}>Reviews</Text> : null }
                 <FlatList
                     data={Data.reviews}
                     horizontal
@@ -246,7 +247,7 @@ const App = ({route, navigation}) => {
                         date = moment(date).utc().format('DD-MM-YYYY');
                         return (
                             <View style={{
-                                marginEnd:20,
+                                marginHorizontal:10,
                                 borderWidth:1,
                                 borderColor:Colors.primary4,
                                 borderRadius:8,
@@ -274,8 +275,6 @@ const App = ({route, navigation}) => {
                         );
                     }}
                 />
-            </View>
-            <View style={{height:50}}/>
             <Text style={{
                 ...styles.title,marginTop:0,
                 position:'absolute',
