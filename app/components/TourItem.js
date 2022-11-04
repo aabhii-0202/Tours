@@ -33,6 +33,7 @@ const App = ({navigation, item}) => {
                     borderTopRightRadius:4,
                 }}
                 resizeMode="stretch"
+                // source={{uri:'https://drive.google.com/file/d/1xrO_b9dXyzRsNBP1fepVth6EsZuP7HX-/view?usp=share_link'}}
                 source={require('../assets/images/tour-1-1.jpg')}
             />
             <View style={{

@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         borderWidth:0.5,
         borderColor: Colors.primary5,
         marginTop:10,
+        alignSelf:'baseline',
     },
     t1:{
         fontFamily:'OpenSans-Bold',
