@@ -21,6 +21,8 @@ import { Snackbar } from 'react-native-paper';
 import moment from 'moment';
 import Stars from '../components/Stars';
 import { BtnSolid } from '../components/Buttons';
+import Map from '../components/Map';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 
 const App = ({route, navigation}) => {
@@ -68,7 +70,7 @@ const App = ({route, navigation}) => {
     const [snackbarText, setsnackbarText] = useState('');
     const [loginAgain, setLoginAgain] = useState(false);
     const [difficulty, setdifficulty] = useState('Easy');
-
+    const [loc, setloc] = useState(null);
 
     useEffect(()=>{
         async function getAll() {
@@ -77,6 +79,7 @@ const App = ({route, navigation}) => {
                 setData(res.data.data);
                 let d = res.data.data.difficulty;
                 setdifficulty(d.charAt(0).toUpperCase() + d.slice(1));
+                setloc(res.data.data.startLocation.description);
                 setloading(false);
             } else {
                 setsnackbarText('Something went wrong! Please Login Again');
@@ -248,6 +251,13 @@ const App = ({route, navigation}) => {
                     </View>
                     <Text style={styles.t2}>{difficulty}</Text>
                 </View>
+                {loc ? <View style={{ flexDirection: 'row', marginTop:10, alignItems:'center', justifyContent:'space-between'}}>
+                    <View style={{ flexDirection: 'row'}}>
+                    <Entypo name="location" size={20} color={Colors.primary1} />
+                    <Text style={styles.t1}>Location:</Text>
+                    </View>
+                    <Text style={styles.t2}>{loc}</Text>
+                </View> : null}
                 <View style={{ flexDirection: 'row', marginTop:10, alignItems:'center', justifyContent:'space-between'}}>
                     <View style={{ flexDirection: 'row'}}>
                     <AntDesign name="clockcircle" size={20} color={Colors.primary1} />
@@ -279,7 +289,6 @@ const App = ({route, navigation}) => {
                 <Text style={styles.title}>About {Data.name}</Text>
                 <Text style={styles.desc}>{Data.summary}</Text>
                 <Text style={styles.desc}>{Data.description}</Text>
-
                 {Data.guides && Data.guides.length > 0 ? <Text style={styles.title}>Your Tour Guides</Text> : null}
                 <FlatList
                     data={Data.guides}
@@ -305,6 +314,13 @@ const App = ({route, navigation}) => {
                     }}
                 />
             </View>
+            {
+                Data.startLocation &&
+                Data.startLocation.coordinates &&
+                Data.startLocation.coordinates.length === 2
+                ?
+                    <Map navigation={navigation} coordinates={Data.startLocation.coordinates}/> : null
+            }
             <Text style={{
                 ...styles.title,marginTop:0,
                 position:'absolute',

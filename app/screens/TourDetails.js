@@ -13,6 +13,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo';
 import { getSpecificTour } from '../api/tours';
 import { createBooking } from '../api/booking';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -67,6 +68,7 @@ const App = ({route, navigation}) => {
     const [snackbarText, setsnackbarText] = useState('');
     const [loginAgain, setLoginAgain] = useState(false);
     const [difficulty, setdifficulty] = useState('Easy');
+    const [loc, setloc] = useState(null);
 
 
     useEffect(()=>{
@@ -76,6 +78,7 @@ const App = ({route, navigation}) => {
                 setData(res.data.data);
                 let d = res.data.data.difficulty;
                 setdifficulty(d.charAt(0).toUpperCase() + d.slice(1));
+                setloc(res.data.data.startLocation.description);
                 setloading(false);
             } else {
                 setsnackbarText('Something went wrong! Please Login Again');
@@ -181,6 +184,13 @@ const App = ({route, navigation}) => {
                     </View>
                     <Text style={styles.t2}>{difficulty}</Text>
                 </View>
+                {loc ? <View style={{ flexDirection: 'row', marginTop:10, alignItems:'center', justifyContent:'space-between'}}>
+                    <View style={{ flexDirection: 'row'}}>
+                    <Entypo name="location" size={20} color={Colors.primary1} />
+                    <Text style={styles.t1}>Location:</Text>
+                    </View>
+                    <Text style={styles.t2}>{loc}</Text>
+                </View> : null}
                 <View style={{ flexDirection: 'row', marginTop:10, alignItems:'center', justifyContent:'space-between'}}>
                     <View style={{ flexDirection: 'row'}}>
                     <AntDesign name="clockcircle" size={20} color={Colors.primary1} />
@@ -237,7 +247,13 @@ const App = ({route, navigation}) => {
                         );
                     }}
                 /></View>
-                <Map/>
+                {
+                Data.startLocation &&
+                Data.startLocation.coordinates &&
+                Data.startLocation.coordinates.length === 2
+                ?
+                    <Map navigation={navigation} coordinates={Data.startLocation.coordinates}/> : null
+                }
                 {Data.reviews && Data.reviews.length > 0 ? <Text style={{...styles.title, marginStart: 24, marginTop: 10}}>Reviews</Text> : null }
                 <FlatList
                     data={Data.reviews}
@@ -281,7 +297,7 @@ const App = ({route, navigation}) => {
                 paddingHorizontal:12,
                 paddingVertical:6,
                 backgroundColor:Colors.primary1,
-                top:230, right:10,
+                top:'13%', right:10,
                 color:Colors.white,
             }}>{Data.name}</Text>
             </ScrollView>
