@@ -161,7 +161,7 @@ const App = ({navigation}) => {
                 horizontal
                 data={myBookings}
                 renderItem={item => {
-                    console.log(item);
+                    // console.log(item);
                     return (
                         <BookingItems navigation={navigation} item={item}/>
                     );

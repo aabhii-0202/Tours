@@ -23,6 +23,11 @@ const App = ({navigation, item}) => {
         date =  moment(item.item.startDates[0]).utc().format('YYYY-MM-DD');
     }
 
+    let url = null;
+    if (item.item.imageCover){
+        url = item.item.imageCover;
+    }
+
     return (
         <View style={styles.container}>
             <Image
@@ -33,8 +38,8 @@ const App = ({navigation, item}) => {
                     borderTopRightRadius:4,
                 }}
                 resizeMode="stretch"
-                // source={{uri:'https://drive.google.com/file/d/1xrO_b9dXyzRsNBP1fepVth6EsZuP7HX-/view?usp=share_link'}}
-                source={require('../assets/images/tour-1-1.jpg')}
+                source={url ? {uri:url} : require('../assets/images/tour-1-1.jpg')}
+                // source={require('../assets/images/tour-1-1.jpg')}
             />
             <View style={{
                 position:'absolute',
