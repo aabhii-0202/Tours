@@ -71,6 +71,7 @@ const App = ({route, navigation}) => {
     const [loginAgain, setLoginAgain] = useState(false);
     const [difficulty, setdifficulty] = useState('Easy');
     const [loc, setloc] = useState(null);
+    const [url, seturl] = useState(null);
 
     useEffect(()=>{
         async function getAll() {
@@ -80,6 +81,9 @@ const App = ({route, navigation}) => {
                 let d = res.data.data.difficulty;
                 setdifficulty(d.charAt(0).toUpperCase() + d.slice(1));
                 setloc(res.data.data.startLocation.description);
+                if (res.data.data.imageCover){
+                    seturl(res.data.data.imageCover);
+                }
                 setloading(false);
             } else {
                 setsnackbarText('Something went wrong! Please Login Again');
@@ -226,7 +230,7 @@ const App = ({route, navigation}) => {
                     width:'100%',
                 }}
                 resizeMode="stretch"
-                source={require('../assets/images/tour-1-1.jpg')}
+                source={url ? {uri:url} : require('../assets/images/tour-1-1.jpg')}
             />
             <View style={{marginHorizontal:24}}>
                 <Text style={styles.title}>QUICK FACTS</Text>
