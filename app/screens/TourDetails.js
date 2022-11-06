@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     SafeAreaView,ScrollView,
     StyleSheet,Image,Dimensions,
-    Text, TextInput, View, Keyboard,
+    Text, View,
     TouchableOpacity,
     FlatList,
 } from 'react-native';
@@ -22,6 +22,7 @@ import moment from 'moment';
 import Stars from '../components/Stars';
 import { BtnSolid } from '../components/Buttons';
 import Map from '../components/Map';
+import { tourdetial } from '../helper/DummyData';
 
 const App = ({route, navigation}) => {
 
@@ -70,6 +71,7 @@ const App = ({route, navigation}) => {
     const [difficulty, setdifficulty] = useState('Easy');
     const [loc, setloc] = useState(null);
     const [url, seturl] = useState(null);
+    const [tourImages, settourImages] = useState([]);
 
     useEffect(()=>{
         async function getAll() {
@@ -81,6 +83,11 @@ const App = ({route, navigation}) => {
                 setloc(res.data.data.startLocation.description);
                 if (res.data.data.imageCover){
                     seturl(res.data.data.imageCover);
+                }
+                if (res.data.data.images){
+                    if (res.data.data.images.length > 0){
+                        settourImages(res.data.data.images);
+                    }
                 }
                 setloading(false);
             } else {
@@ -145,6 +152,35 @@ const App = ({route, navigation}) => {
         setloading(false);
 
     };
+
+    const DispImages = () => {
+        return (
+            tourImages.length > 0 ?
+            <View>
+                <Text style={{...styles.title,marginStart:24}}>Images</Text>
+            <ScrollView style={{ marginTop:24}}
+            horizontal>
+                {
+                    tourImages.map((item)=>{
+                        // console.log(tourImages);
+                        return (
+                            <Image
+                            style={{
+                                width: Dimensions.get('window').width * 0.8,
+                                height: Dimensions.get('window').height * 0.3,
+                            }}
+                            resizeMode="stretch"
+                            source={item ? {uri:item} : require('../assets/images/tour-1-1.jpg')}
+                            />
+                        );
+                    })
+                }
+            </ScrollView>
+            </View>
+            : null
+        );
+    };
+
     return (
         <SafeAreaView style={{flex:1,backgroundColor:Colors.background}}>
          <Spinner
@@ -249,6 +285,7 @@ const App = ({route, navigation}) => {
                         );
                     }}
                 /></View>
+                <DispImages/>
                 {
                 Data.startLocation &&
                 Data.startLocation.coordinates &&
@@ -294,12 +331,12 @@ const App = ({route, navigation}) => {
                     }}
                 />
             <Text style={{
-                ...styles.title,marginTop:0,
+                ...styles.title,
                 position:'absolute',
                 paddingHorizontal:12,
                 paddingVertical:6,
                 backgroundColor:Colors.primary1,
-                top:'13%', right:10,
+                marginTop:Dimensions.get('window').height * 0.32, right:10,
                 color:Colors.white,
             }}>{Data.name}</Text>
             </ScrollView>

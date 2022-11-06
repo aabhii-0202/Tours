@@ -72,6 +72,7 @@ const App = ({route, navigation}) => {
     const [difficulty, setdifficulty] = useState('Easy');
     const [loc, setloc] = useState(null);
     const [url, seturl] = useState(null);
+    const [tourImages, settourImages] = useState([]);
 
     useEffect(()=>{
         async function getAll() {
@@ -83,6 +84,11 @@ const App = ({route, navigation}) => {
                 setloc(res.data.data.startLocation.description);
                 if (res.data.data.imageCover){
                     seturl(res.data.data.imageCover);
+                }
+                if (res.data.data.images){
+                    if (res.data.data.images.length > 0){
+                        settourImages(res.data.data.images);
+                    }
                 }
                 setloading(false);
             } else {
@@ -214,6 +220,34 @@ const App = ({route, navigation}) => {
         );
     };
 
+    const DispImages = () => {
+        return (
+            tourImages.length > 0 ?
+            <View>
+                <Text style={{...styles.title,marginStart:24}}>Images</Text>
+            <ScrollView style={{ marginTop:24}}
+            horizontal>
+                {
+                    tourImages.map((item)=>{
+                        // console.log(tourImages);
+                        return (
+                            <Image
+                            style={{
+                                width: Dimensions.get('window').width * 0.8,
+                                height: Dimensions.get('window').height * 0.3,
+                            }}
+                            resizeMode="stretch"
+                            source={item ? {uri:item} : require('../assets/images/tour-1-1.jpg')}
+                            />
+                        );
+                    })
+                }
+            </ScrollView>
+            </View>
+            : null
+        );
+    };
+
     return (
         <SafeAreaView style={{flex:1,backgroundColor:Colors.background}}>
          <Spinner
@@ -318,6 +352,7 @@ const App = ({route, navigation}) => {
                     }}
                 />
             </View>
+            <DispImages/>
             {
                 Data.startLocation &&
                 Data.startLocation.coordinates &&

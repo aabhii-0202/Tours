@@ -44,7 +44,7 @@ const App = ({navigation, item}) => {
             <View style={{
                 position:'absolute',
                 right:10,
-                top:120,
+                marginTop:Dimensions.get('window').height * 0.17,
             }}>
                 <Text style={styles.t6}>{item.item.name}</Text>
             </View>

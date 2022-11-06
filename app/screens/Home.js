@@ -15,6 +15,7 @@ import { getMyBookings } from '../api/booking';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Snackbar } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
+// import { tours } from '../helper/DummyData';
 
 const App = ({navigation}) => {
     useLayoutEffect(() => {
@@ -94,6 +95,7 @@ const App = ({navigation}) => {
                 setloading(false);
             } else {
                 setsnackbarText('Something went wrong!');
+                // setItemList(tours.data.data);
                 setsnackbar(true);
                 setloading(false);
             }
