@@ -170,7 +170,7 @@ const App = ({route, navigation}) => {
                                 height: Dimensions.get('window').height * 0.3,
                             }}
                             resizeMode="stretch"
-                            source={item ? {uri:item} : require('../assets/images/tour-1-1.jpg')}
+                            source={{uri:item}}
                             />
                         );
                     })
@@ -197,7 +197,7 @@ const App = ({route, navigation}) => {
                     width:'100%',
                 }}
                 resizeMode="stretch"
-                source={url ? {uri:url} : require('../assets/images/tour-1-1.jpg')}
+                source={{uri:url}}
             />
             <View style={{marginHorizontal:24}}>
                 <Text style={styles.title}>QUICK FACTS</Text>

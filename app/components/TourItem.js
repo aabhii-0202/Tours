@@ -38,8 +38,7 @@ const App = ({navigation, item}) => {
                     borderTopRightRadius:4,
                 }}
                 resizeMode="stretch"
-                source={url ? {uri:url} : require('../assets/images/tour-1-1.jpg')}
-                // source={require('../assets/images/tour-1-1.jpg')}
+                source={{uri:url}}
             />
             <View style={{
                 position:'absolute',
