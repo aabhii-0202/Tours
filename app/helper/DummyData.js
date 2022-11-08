@@ -827,7 +827,7 @@ export const tourdetial = {
                     "role": "guide",
                     "_id": "63649894f77fd20016afcbe2",
                     "name": "guide2",
-                    "email": "guide2@gmail.com"
+                    "email": "guidedd@gmail.com"
                 }
             ],
             "_id": "5c88fa8cf4afda39709c2951",
