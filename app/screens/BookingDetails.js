@@ -73,6 +73,8 @@ const App = ({route, navigation}) => {
     const [loc, setloc] = useState(null);
     const [url, seturl] = useState(null);
     const [tourImages, settourImages] = useState([]);
+    const [showReview, setShowreview] = useState(true);
+    const [TourIsOver,setTourIsOver] = useState(false);
 
     useEffect(()=>{
         async function getAll() {
@@ -88,6 +90,25 @@ const App = ({route, navigation}) => {
                 if (res.data.data.images){
                     if (res.data.data.images.length > 0){
                         settourImages(res.data.data.images);
+                    }
+                }
+                if (res.data.data.startDates[0]){
+                    const now = new Date(Date.now());
+                    const tourdate = new Date(res.data.data.startDates[0]);
+                    if (now > tourdate){
+                        setTourIsOver(true);
+                        if (res.data.data.reviews && res.data.data.reviews.length > 0){
+                            const reviews = res.data.data.reviews;
+                            const id =  await AsyncStorage.getItem('@_id');
+                            reviews.map((item)=>{
+                                if (item.user._id === id){
+                                    console.log(item);
+                                    setShowreview(false);
+                                }
+                            });
+                        }
+                    } else {
+                        setShowreview(false);
                     }
                 }
                 setloading(false);
@@ -131,9 +152,11 @@ const App = ({route, navigation}) => {
 
     const cancel = async () => {
         setloading(true);
+        let textt = 'Cancelation successful.';
+        if (TourIsOver) {textt = 'Deletion successful.';}
         await deleteBooking(route.params.bookingId);
         setloading(false);
-        setsnackbarText('Cancellation successful.');
+        setsnackbarText(textt);
             setsnackbar(true);
             setTimeout(() => {
                 navigation.pop();
@@ -143,18 +166,14 @@ const App = ({route, navigation}) => {
 
     const RateOrCancel = () => {
         const [num,setNum] = useState(0);
-        const size = 50;
+        const size = 40;
         const [review, setReview] = useState('');
-        const TourIsOver = false;
+        let textt = 'Cancel';
+        if (TourIsOver) {textt = 'Tour Over Delete Record';}
         return (
-            !TourIsOver ?
-                <View style={{
-                    marginHorizontal:24,
-                    marginBottom:20,
-                }}>
-                    <BtnSolid text="Cancel" click={cancel}/>
-                </View>
-                :
+            <View>
+                {
+                showReview ?
                 <View style={{marginHorizontal: 24,marginBottom:20}}>
                 <Text style={styles.title}>Rate The Tour</Text>
                 <View style={{
@@ -186,6 +205,17 @@ const App = ({route, navigation}) => {
                     onChangeText={setReview}
                 />
                 <BtnSolid text="Submit" click={ async ()=>{
+                    try {
+                        const now = new Date(Date.now());
+                        const tourdate = new Date(Data.startDates[0]);
+                        if (now < tourdate){
+                            setsnackbarText('Tour not over yet.');
+                            setsnackbar(true);
+                            setloading(false);
+                            return;
+                        }
+                    }
+                    catch (e){}
                     setloading(true);
                     if (num === 0) {
                         setsnackbarText('Please Give Rating');
@@ -217,6 +247,16 @@ const App = ({route, navigation}) => {
 
                 }}/>
                 </View>
+                : null
+                }
+                <View style={{
+                    marginHorizontal:24,
+                    marginBottom:20,
+                }}>
+                    <BtnSolid text={textt} click={cancel}/>
+                </View>
+                </View>
+
         );
     };
 
