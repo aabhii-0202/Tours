@@ -130,6 +130,19 @@ const App = ({route, navigation}) => {
 
     const book = async () => {
         setloading(true);
+        try {
+            const now = new Date(Date.now());
+            const tourdate = new Date(Data.startDates[0]);
+            if (now > tourdate){
+                setsnackbarText('No future dates as of now for this tour.');
+                setsnackbar(true);
+                setloading(false);
+                return;
+            }
+        }
+        catch (e){
+
+        }
         const credentials = {
             'tour': Data._id,
             'user': await AsyncStorage.getItem('@_id'),
@@ -208,7 +221,7 @@ const App = ({route, navigation}) => {
                         renderItem = {({item, index}) => {
                             return (
                                 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                                    <Text style={styles.t1}>Upcoming Tour {index + 1}:</Text>
+                                    <Text style={styles.t1}>Upcoming Tour:</Text>
                                     <Text style={styles.t2}>{moment(item).utc().format('DD-MM-YYYY')}</Text>
                                 </View>
                             );

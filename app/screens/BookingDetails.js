@@ -275,7 +275,7 @@ const App = ({route, navigation}) => {
                         renderItem = {({item, index}) => {
                             return (
                                 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                                    <Text style={styles.t1}>Upcoming Tour {index + 1}:</Text>
+                                    <Text style={styles.t1}>Upcoming Tour :</Text>
                                     <Text style={styles.t2}>{moment(item).utc().format('DD-MM-YYYY')}</Text>
                                 </View>
                             );
