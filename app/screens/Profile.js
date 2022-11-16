@@ -25,7 +25,7 @@ const App = ({navigation}) => {
                     <Text style={{ fontSize: FontSizes.h2, color: Colors.grey8C, fontFamily: 'OpenSans-SemiBold', alignSelf: 'center', textAlign: 'center' }}>
                         Profile</Text>
                 </View>,
-            headerRight: () => <HeaderRightButton navigation={navigation} />,
+            headerRight: () => null,
             headerLeft: () => <HeaderLeftButton navigation={navigation} />,
         });
     }, [navigation]);
@@ -89,7 +89,6 @@ const App = ({navigation}) => {
                 const data = res.data.data;
                 setName(data.name);
                 setMail(data.email);
-                setpic(data.photo);
                 setid(data._id);
                 setloading(false);
             }
@@ -164,7 +163,6 @@ const App = ({navigation}) => {
     const [name,setName] = useState('');
     const [mail,setMail] = useState('');
     const [id, setid] = useState('');
-    const [pic, setpic] = useState(null);
 
     const [currentpass, setcurrentPass] = useState('');
     const [newPass, setNewPass] = useState('');
@@ -188,7 +186,7 @@ const App = ({navigation}) => {
                 marginTop:20,
             }}
                 source={require('../assets/images/avatar.png')}/>
-            <TouchableOpacity
+            {/* <TouchableOpacity
             style={{
                 position:'absolute',
                 bottom:0, right:100,
@@ -196,7 +194,7 @@ const App = ({navigation}) => {
             }}
             >
                 <AntDesign name="edit" size={30} color={Colors.primary1}/>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
         <Input
             text="Id:"

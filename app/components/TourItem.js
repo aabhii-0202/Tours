@@ -1,5 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState } from 'react';
-
+import React from 'react';
 import {
     StyleSheet,Image,
     Text,View,
@@ -32,7 +31,7 @@ const App = ({navigation, item}) => {
         <View style={styles.container}>
             <Image
                 style={{
-                    height:'30%',
+                    height:200,
                     width:'100%',
                     borderTopLeftRadius:4,
                     borderTopRightRadius:4,
@@ -40,13 +39,6 @@ const App = ({navigation, item}) => {
                 resizeMode="stretch"
                 source={{uri:url}}
             />
-            <View style={{
-                position:'absolute',
-                right:10,
-                marginTop:Dimensions.get('window').height * 0.17,
-            }}>
-                <Text style={styles.t6}>{item.item.name}</Text>
-            </View>
             <View style={{
                 paddingHorizontal:20,
                 paddingVertical:20,
@@ -90,6 +82,18 @@ const App = ({navigation, item}) => {
                     }}>Details</Text>
                 </TouchableOpacity>
             </View>
+            <Text style={{
+                    fontFamily:'OpenSans-Bold',
+                    fontSize:FontSizes.h3,
+                    color:Colors.white,
+                    paddingHorizontal:10,
+                    paddingVertical:5,
+                    backgroundColor:Colors.primary1,
+                    textAlign:'right',
+                    position:'absolute',
+                    right:0,
+                    marginTop:185,
+                }}>{item.item.name}</Text>
         </View>
     );
 };
@@ -127,15 +131,6 @@ const styles = StyleSheet.create({
         color:Colors.grey8C,
         marginTop:8,
         marginStart:4,
-    },
-    t6:{
-        fontFamily:'OpenSans-Bold',
-        fontSize:FontSizes.h3,
-        color:Colors.white,
-        paddingHorizontal:10,
-        paddingVertical:5,
-        backgroundColor:Colors.primary1,
-        textAlign:'right',
     },
     v1:{
         flexDirection:'row',

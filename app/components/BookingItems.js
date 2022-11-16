@@ -5,7 +5,7 @@ import moment from 'moment';
 
 
 const App = ({navigation,item}) => {
-
+    // console.log(item);
     let name = '';
     let TourId = '';
     let booked = item.item.createdAt;

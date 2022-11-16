@@ -349,7 +349,7 @@ const App = ({route, navigation}) => {
                 paddingHorizontal:12,
                 paddingVertical:6,
                 backgroundColor:Colors.primary1,
-                marginTop:Dimensions.get('window').height * 0.32, right:10,
+                marginTop:230, right:10,
                 color:Colors.white,
             }}>{Data.name}</Text>
             </ScrollView>
