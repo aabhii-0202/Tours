@@ -1,7 +1,7 @@
 import React, {useLayoutEffect,useEffect,useState, useRef} from 'react';
 
 import {
-    SafeAreaView, View,
+    SafeAreaView, View,Text,
     StyleSheet,Animated,
 } from 'react-native';
 
@@ -59,6 +59,7 @@ const App = ({navigation}) => {
                     ],
                 },
             ]}/>
+            <Text style={styles.text}>Made with ❤️ by Abhishek</Text>
         </SafeAreaView>
     );
 };
@@ -76,6 +77,12 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.primary1,
         borderRadius:16,
     },
+    text:{
+        marginTop:100,
+        fontFamily:'OpenSans-Bold',
+        color:Colors.txtBlack,
+        fontSize:FontSizes.h,
+    }
 });
 
 export default App;
