@@ -23,7 +23,7 @@ const App = ({navigation}) => {
             headerTitle: () =>
                 <View style={{alignSelf:'center',marginStart:0}}>
                     <Text style={{ fontSize: FontSizes.h2, color: Colors.grey8C, fontFamily: 'OpenSans-SemiBold', alignSelf: 'center', textAlign: 'center' }}>
-                        All Tours</Text>
+                        Tours</Text>
                 </View>,
             headerRight: () => <HeaderRightButton navigation={navigation} />,
             headerLeft: () => <HeaderLeftButton navigation={navigation} />,
