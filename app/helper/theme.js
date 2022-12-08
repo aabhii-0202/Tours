@@ -1,5 +1,4 @@
-/* eslint-disable*/
-import { Dimensions, useWindowDimensions } from 'react-native'
+import { Dimensions } from 'react-native';
 
 export const FontSizes = {
     t1:55,
@@ -20,7 +19,7 @@ export const FontSizes = {
     p2:13,
     p3:12,
 
-}
+};
 
 export const Colors = {
     primary1: '#68bd87',
@@ -31,23 +30,20 @@ export const Colors = {
     primary6: '#f1f9f4',
 
     grey8C: '#8C9099',
-    greyE8: '#E8E8EA',
     greyF3: '#F3F3F4',
     greyE8: '#E8E8EA',
 
-    mintGreen: '#98FB98',
-    
-    
-    border2:'#538866',
-    border:'#5F9C75',
-    background: '#FCFCFD',
     white: '#ffffff',
     txtBlack: '#343434',
+    border2:'#538866',
+    border:'#5F9C75',
+    mintGreen: '#98FB98',
+    background: '#FCFCFD',
     link: '#0D67A8',
     disabled: '#D1C9CC',
-}
+};
 
 export const Screen = {
     height : Dimensions.get('window').height,
-    width : Dimensions.get('window').width
-}
+    width : Dimensions.get('window').width,
+};
