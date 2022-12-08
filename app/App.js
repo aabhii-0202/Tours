@@ -17,7 +17,7 @@ export default () => {
           headerTitleAlign: 'center',
           headerShadowVisible: false,
           headerTitleStyle: {
-            fontSize: 18,
+            fontSize: 19,
             fontFamily: 'Montserrat-Medium',
             color: 'black',
           },
